@@ -80,7 +80,7 @@
       "allowTemplateLiterals": true,
       "avoidEscape": true
     }],
-    "max-len"              : ["error", {
+    "max-len"              : ["warn", {
       "code": 80,
       "tabWidth":2,
       "comments":220 //Separated max length for comments
@@ -177,8 +177,8 @@
     "prefer-rest-params"   : "error",
     "prefer-spread"        : "error",
     //Unnecessary semicolon is an annoying visual clutter
-    "no-extra-semi"        : "error",
-    "semi"                 : ["error", "never"]
+    "no-extra-semi"        : "warn",
+    "semi"                 : ["warn", "never"]
   }
 }
 

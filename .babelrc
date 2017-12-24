@@ -1,0 +1,20 @@
+{
+  "plugins": [
+    ["@babel/plugin-transform-block-scoping", {
+      "throwIfClosureRequired": true
+    }],
+    "@babel/plugin-transform-flow-strip-types"
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "@babel/plugin-transform-modules-commonjs"
+      ]
+    },
+    "commonjs": {
+      "plugins": [
+        "@babel/plugin-transform-modules-commonjs"
+      ]
+    }
+  }
+}

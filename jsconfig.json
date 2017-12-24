@@ -11,9 +11,6 @@
     "alwaysStrict": true,
     "strict": true
   },
-  "typeAcquisition": {
-    "enable": true
-  },
   "include": [
     "src"
   ]
