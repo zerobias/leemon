@@ -1048,6 +1048,67 @@ export function str2bigInt(s: string, base: number, minSize?: number): number[] 
   return y;
 }
 
+//return the bigInt given a string representation in a given base.
+//Pad the array with leading zeros so that it has at least minSize elements.
+//If base=-1, then it reads in a space-separated list of array elements in decimal.
+//The array will always have at least one leading zero, unless base=-1.
+// function str2bigInt(s,b,minSize) {
+//   var d, i, j, base, str, x, y, kk;
+//   if (typeof b === 'string') {
+//           base = b.length;
+//           str = b;
+//   } else {
+//           base = b;
+//           str = digitsStr;
+//   }
+//   var k=s.length;
+//   if (base==-1) { //comma-separated list of array elements in decimal
+//       x=new Array(0);
+//       for (;;) {
+//           y=new Array(x.length+1);
+//           for (i=0;i<x.length;i++)
+//               y[i+1]=x[i];
+//           y[0]=parseInt(s,10);
+//           x=y;
+//           d=s.indexOf(',',0);
+//           if (d<1)
+//               break;
+//           s=s.substring(d+1);
+//           if (s.length==0)
+//               break;
+//       }
+//       if (x.length<minSize) {
+//           y=new Array(minSize);
+//           copy_(y,x);
+//           return y;
+//       }
+//       return x;
+//   }
+
+//   x=int2bigInt(0,base*k,0);
+// for (i=0;i<k;i++) {
+//   d=str.indexOf(s.substring(i,i+1),0);
+//   if (base<=36 && d>=36) { //convert lowercase to uppercase if base<=36
+//       d-=26;
+//   }
+//   if (d>=base || d<0) {   //ignore illegal characters
+//   continue;
+//       }
+//       multInt_(x,base);
+//       addInt_(x,d);
+//   }
+
+//   for (k=x.length;k>0 && !x[k-1];k--); //strip off leading zeros
+//   k=minSize>k+1 ? minSize : k+1;
+//   y=new Array(k);
+//   kk=k<x.length ? k : x.length;
+//   for (i=0;i<kk;i++)
+//       y[i]=x[i];
+//   for (;i<k;i++)
+//       y[i]=0;
+//   return y;
+// }
+
 //is bigint x equal to integer y?
 //y must have less than bpe bits
 export function equalsInt(x: number[], y: number) {
@@ -1060,13 +1121,20 @@ export function equalsInt(x: number[], y: number) {
   return 1;
 }
 
-//are bigints x and y equal?
-//this works even if x and y are different lengths and have arbitrarily many leading zeros
-function equals(x: number[], y: number[]) {
+/**
+ * are bigints x and y equal?
+ *
+ * this works even if x and y are different lengths and have arbitrarily many leading zeros
+ *
+ * @param {number[]} x
+ * @param {number[]} y
+ * @returns {(1 | 0)}
+ */
+export function equals(x: number[], y: number[]): 1 | 0 {
   var i;
   var k=x.length<y.length ? x.length : y.length;
   for (i=0; i<k; i++)
-    if (x[i]!=y[i])
+    if (x[i]!==y[i])
       return 0;
   if (x.length>y.length) {
     for (;i<x.length; i++)
@@ -1080,86 +1148,130 @@ function equals(x: number[], y: number[]) {
   return 1;
 }
 
-//is the bigInt x equal to zero?
-export function isZero(x: number[]) {
-  var i;
+/**
+ * is the bigInt x equal to zero?
+ *
+ * @export
+ * @param {number[]} x
+ * @returns {(1 | 0)}
+ */
+export function isZero(x: number[]): 1 | 0 {
+  var i
   for (i=0; i<x.length; i++)
     if (x[i])
-      return 0;
-  return 1;
+      return 0
+  return 1
 }
 
-//convert a bigInt into a string in a given base, from base 2 up to base 95.
-//Base -1 prints the contents of the array representing the number.
-export function bigInt2str(x: number[], base: number) {
-  var i, t, s='';
+/**
+ * Convert a bigInt into a string in a given base, from base 2 up to base 95.
+ *
+ * Base -1 prints the contents of the array representing the number.
+ *
+ * @export
+ * @param {number[]} x
+ * @param {number} base
+ * @returns {string}
+ */
+export function bigInt2str(x: number[], base: number): string {
+  var i, t, s=''
 
-  if (s6.length!=x.length)
-    s6=dup(x);
+  if (s6.length!==x.length)
+    s6=dup(x)
   else
-    copy_(s6, x);
+    copy_(s6, x)
 
-  if (base==-1) { //return the list of array contents
+  if (base===-1) { //return the list of array contents
     for (i=x.length-1; i>0; i--)
-      s+=x[i]+',';
-    s+=x[0];
+      s+=x[i]+','
+    s+=x[0]
   }
   else { //return it in the given base
     while (!isZero(s6)) {
-      t=divInt_(s6, base);  //t=s6 % base; s6=floor(s6/base);
-      s=digitsStr.substring(t, t+1)+s;
+      t=divInt_(s6, base)  //t=s6 % base; s6=floor(s6/base);
+      s=digitsStr.substring(t, t+1)+s
     }
   }
-  if (s.length==0)
-    s='0';
-  return s;
+  if (s.length===0)
+    s='0'
+  return s
 }
 
-//returns a duplicate of bigInt x
-export function dup(x: number[]) {
-  var i;
-  buff=new Array(x.length);
-  copy_(buff, x);
-  return buff;
+/**
+ * Returns a duplicate of bigInt x
+ *
+ * @export
+ * @param {number[]} x
+ * @returns {number[]}
+ */
+export function dup(x: number[]): number[] {
+  var i
+  buff = Array(x.length)
+  copy_(buff, x)
+  return buff
 }
 
-//do x=y on bigInts x and y.  x must be an array at least as big as y (not counting the leading zeros in y).
-export function copy_(x: number[], y: number[]) {
-  var i;
-  var k=x.length<y.length ? x.length : y.length;
+/**
+ * do x=y on bigInts x and y.
+ *
+ * x must be an array at least as big as y (not counting the leading zeros in y).
+ *
+ * @export
+ * @param {number[]} x
+ * @param {number[]} y
+ */
+export function copy_(x: number[], y: number[]): void {
+  var i
+  var k=x.length<y.length
+    ? x.length
+    : y.length
   for (i=0; i<k; i++)
-    x[i]=y[i];
+    x[i]=y[i]
   for (i=k; i<x.length; i++)
-    x[i]=0;
+    x[i]=0
 }
 
-//do x=y on bigInt x and integer y.
-export function copyInt_(x: number[], n: number) {
-  var i, c;
-  var len = x.length; //TODO .length in for loop have perfomance costs. Bench this
+/**
+ * do x=y on bigInt x and integer y.
+ *
+ * @export
+ * @param {number[]} x
+ * @param {number} n
+ */
+export function copyInt_(x: number[], n: number): void {
+  var i, c
+  var len = x.length //TODO .length in for loop have perfomance costs. Bench this
   for (c=n, i=0; i<len; i++) {
-    x[i]=c & mask;
-    c>>=bpe;
+    x[i]=c & mask
+    c>>=bpe
   }
 }
 
-//do x=x+n where x is a bigInt and n is an integer.
-//x must be large enough to hold the result.
-export function addInt_(x: number[], n: number) {
-  var i, k, c, b;
-  x[0]+=n;
-  k=x.length;
-  c=0;
+/**
+ * do x=x+n where x is a bigInt and n is an integer.
+ *
+ * x must be large enough to hold the result.
+ *
+ * @export
+ * @param {number[]} x
+ * @param {number} n
+ * @returns {void}
+ */
+export function addInt_(x: number[], n: number): void {
+  var i, k, c, b
+  x[0]+=n
+  k=x.length
+  c=0
   for (i=0; i<k; i++) {
-    c+=x[i];
-    b=0;
+    c+=x[i]
+    b=0
     if (c<0) {
-      b=-(c>>bpe);
-      c+=b*radix;
+      b=-(c>>bpe)
+      c+=b*radix
     }
-    x[i]=c & mask;
-    c=(c>>bpe)-b;
-    if (!c) return; //stop carrying as soon as the carry is zero
+    x[i]=c & mask
+    c=(c>>bpe)-b
+    if (!c) return //stop carrying as soon as the carry is zero
   }
 }
 
