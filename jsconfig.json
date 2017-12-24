@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "es2015",
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": false,
+    "noLib": false,
+    "skipDefaultLibCheck": false,
+    "checkJs": true,
+    "alwaysStrict": true,
+    "strict": true
+  },
+  "typeAcquisition": {
+    "enable": true
+  },
+  "include": [
+    "src"
+  ]
+}

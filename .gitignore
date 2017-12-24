@@ -1,0 +1,15 @@
+src/schema/
+node_modules/
+tmp/
+i18n/*.pot
+*.sublime*
+docs/
+config*.json
+*.DS_Store*
+lib/
+es/
+
+# VSCode specific
+.history
+.flowconfig-ignore
+

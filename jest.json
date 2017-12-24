@@ -1,0 +1,14 @@
+{
+  "transform": {
+    "^.+\\.jsx?$": "babel-jest"
+  },
+  "testEnvironment": "node",
+  "testMatch": [
+    "**/__tests__/**/*.test.js"
+  ],
+  "testPathIgnorePatterns": [
+    "<rootDir>/lib/",
+    "<rootDir>/es/",
+    "<rootDir>/node_modules/"
+  ]
+}
