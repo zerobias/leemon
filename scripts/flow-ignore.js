@@ -1,7 +1,6 @@
 //@flow
 
-const { readdirSync, outputFileSync, pathExistsSync } = 
-require('fs-extra')
+const { readdirSync, outputFileSync, pathExistsSync } = require('fs-extra')
 
 const ROOT = `${__dirname}/..`
 const RESULT_PATH = `${ROOT}/.flowconfig-ignore`
@@ -38,13 +37,10 @@ const IGNORED = IGNORED_ONLY
 
 const notIgnored = name => !IGNORED.includes(name)
 
-const getModuleInfo = (name) => 
-`${MODULES}/${name}/${PACKAGE}`
-const getPackageInfo = (name) => 
-`${PACKAGES}/${name}/${PACKAGE}`
+const getModuleInfo = (name) => `${MODULES}/${name}/${PACKAGE}`
+const getPackageInfo = (name) => `${PACKAGES}/${name}/${PACKAGE}`
 
-const getDependencies = (info) => 
-Object.keys(info.dependencies || {})
+const getDependencies = (info) => Object.keys(info.dependencies || {})
 const getPackageName = (info)/*:::string*/ => info.name || ''
 
 function readdirSafe(fullPath) {
@@ -76,22 +72,22 @@ const readModuleDeps = (fullPath) => {
   }
 }
 
-const getPackagesNames = () => readdirSafe(PACKAGES)
-  .map(getPackageInfo)
-  .reduce((acc/*:::string[]*/, path) => {
-    const name = getPackageName(
-      safeReadPackage(path)
-    )
-    return name === ''
-      ? acc
-      : [
-        ...acc,
-        name
-      ]
-  }, [])
-  .filter(notIgnored)
+// const getPackagesNames = () => readdirSafe(PACKAGES)
+//   .map(getPackageInfo)
+//   .reduce((acc/*:::string[]*/, path) => {
+//     const name = getPackageName(
+//       safeReadPackage(path)
+//     )
+//     return name === ''
+//       ? acc
+//       : [
+//         ...acc,
+//         name
+//       ]
+//   }, [])
+//   .filter(notIgnored)
 
-const packageNames = getPackagesNames()
+// const packageNames = getPackagesNames()
 
 const getInnerDeps = (result, depName) =>
   readModuleDeps(getModuleInfo(depName))
@@ -142,18 +138,28 @@ const nodeModules = getModules(deps)
 
 const uniqIgnored = IGNORED_ONLY.filter(isNotTyping)
 
-const ignored =
-`💩 ignored total:
-💩 ${IGNORED.join(',')}
-💩 ignored typings:
-💩 ${IGNORED_TYPINGS.sort().join(', ')}
-💩 active:
-💩 ${deps.sort().join(', ')}
-💩 run again:
-💩 IGNORED="${uniqIgnored.sort().join(',')}" node 
-scripts/flow-ignore
-💩 \n`
+const ignored = getOutputComments()
 
+function getOutputComments() {
+  const total = IGNORED.join(',')
+  const typings = IGNORED_TYPINGS.sort().join(', ')
+  const active = deps.sort().join(', ')
+  const ignored = uniqIgnored.sort().join(',')
+  const runAgain = ignored === ''
+    ? 'node scripts/flow-ignore'
+    : `IGNORED="${ignored}" node scripts/flow-ignore`
+  return (
+    `💩 ignored total:
+💩 ${total}
+💩 ignored typings:
+💩 ${typings}
+💩 active:
+💩 ${active}
+💩 run again:
+💩 ${runAgain}
+💩 \n`
+  )
+}
 
 const result = ignored.concat(
   nodeModules
@@ -170,3 +176,4 @@ console.log(`Total typings: ${IGNORED_TYPINGS.length}`)
 console.log(`Total ignored deps: ${nodeModules.length}`)
 console.log(`Saved as ${RESULT_PATH}`)
 
+// https://gist.github.com/zerobias/866eeac0cd19b073e286d72de60d4871

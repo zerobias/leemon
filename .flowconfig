@@ -21,14 +21,14 @@ module.use_strict=true
 <PROJECT_ROOT>/es/*
 <PROJECT_ROOT>/lib/*
 💩 ignored total:
-💩 
+💩
 💩 ignored typings:
-💩 jest
+💩 fs-extra, jest
 💩 active:
-💩 
+💩
 💩 run again:
 💩 node scripts/flow-ignore
-💩 
+💩
 <PROJECT_ROOT>/node_modules/.bin/*
 <PROJECT_ROOT>/node_modules/.yarn-integrity/*
 <PROJECT_ROOT>/node_modules/JSONStream/*
@@ -787,6 +787,9 @@ module.use_strict=true
 <PROJECT_ROOT>/node_modules/trim-right/*
 <PROJECT_ROOT>/node_modules/trim-trailing-lines/*
 <PROJECT_ROOT>/node_modules/trough/*
+<PROJECT_ROOT>/node_modules/tslib/*
+<PROJECT_ROOT>/node_modules/tslint/*
+<PROJECT_ROOT>/node_modules/tsutils/*
 <PROJECT_ROOT>/node_modules/tunnel-agent/*
 <PROJECT_ROOT>/node_modules/tv4/*
 <PROJECT_ROOT>/node_modules/tweetnacl/*
