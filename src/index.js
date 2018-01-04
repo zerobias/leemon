@@ -1,61 +1,14 @@
 'use strict'
 //@flow
 
+/* * * * * * * * * * * *
+ * Big Integer Library *
+ * Created 2000        *
+ * Leemon Baird        *
+ * www.leemon.com      *
+ * * * * * * * * * * * */
 
 ////////////////////////////////////////////////////////////////////////////////////////
-// Big Integer Library v. 5.5
-// Created 2000, last modified 2013
-// Leemon Baird
-// www.leemon.com
-//
-// Version history:
-// v 5.5  17 Mar 2013
-//   - two lines of a form like "if (x<0) x+=n" had the "if" changed to "while" to
-//     handle the case when x<-n. (Thanks to James Ansell for finding that bug)
-// v 5.4  3 Oct 2009
-//   - added "var i" to greaterShift() so i is not global. (Thanks to PŽter Szab— for finding that bug)
-//
-// v 5.3  21 Sep 2009
-//   - added randProbPrime(k) for probable primes
-//   - unrolled loop in mont_ (slightly faster)
-//   - millerRabin now takes a bigInt parameter rather than an int
-//
-// v 5.2  15 Sep 2009
-//   - fixed capitalization in call to int2bigInt in randBigInt
-//     (thanks to Emili Evripidou, Reinhold Behringer, and Samuel Macaleese for finding that bug)
-//
-// v 5.1  8 Oct 2007
-//   - renamed inverseModInt_ to inverseModInt since it doesn't change its parameters
-//   - added functions GCD and randBigInt, which call GCD_ and randBigInt_
-//   - fixed a bug found by Rob Visser (see comment with his name below)
-//   - improved comments
-//
-// This file is public domain.   You can use it for any purpose without restriction.
-// I do not guarantee that it is correct, so use it at your own risk.  If you use
-// it for something interesting, I'd appreciate hearing about it.  If you find
-// any bugs or make any improvements, I'd appreciate hearing about those too.
-// It would also be nice if my name and URL were left in the comments.  But none
-// of that is required.
-//
-// This code defines a bigInt library for arbitrary-precision integers.
-// A bigInt is an array of integers storing the value in chunks of bpe bits,
-// little endian (buff[0] is the least significant word).
-// Negative bigInts are stored two's complement.  Almost all the functions treat
-// bigInts as nonnegative.  The few that view them as two's complement say so
-// in their comments.  Some functions assume their parameters have at least one
-// leading zero element. Functions with an underscore at the end of the name put
-// their answer into one of the arrays passed in, and have unpredictable behavior
-// in case of overflow, so the caller must make sure the arrays are big enough to
-// hold the answer.  But the average user should never have to call any of the
-// underscored functions.  Each important underscored function has a wrapper function
-// of the same name without the underscore that takes care of the details for you.
-// For each underscored function where a parameter is modified, that same variable
-// must not be used as another argument too.  So, you cannot square x by doing
-// multMod_(x,x,n).  You must use squareMod_(x,n) instead, or do y=dup(x); multMod_(x,y,n).
-// Or simply use the multMod(x,x,n) function without the underscore, where
-// such issues never arise, because non-underscored functions never change
-// their parameters; they always allocate new memory for the answer that is returned.
-//
 // These functions are designed to avoid frequent dynamic memory allocation in the inner loop.
 // For most functions, if it needs a BigInt as a local variable it will actually use
 // a global, and will only allocate to it only when it's not the right size.  This ensures
