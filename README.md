@@ -26,7 +26,7 @@ Or simply use the `multMod(x,x,n)` function without the underscore, where such i
 # API
 Complete API reference can be found [here](./API.md)
 
-This code is reincarnation of Big Integer Library created by [Leemon Baird](www.leemon.com) in 2000, supported up to 2013
+This code is reincarnation of Big Integer Library created by [Leemon Baird](https://www.leemon.com/) in 2000, supported up to 2013
 
 [npm-url]: https://www.npmjs.org/package/leemon
 [npm-image]: https://badge.fury.io/js/leemon.svg
