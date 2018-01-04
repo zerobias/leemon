@@ -22,7 +22,7 @@ module.use_strict=true
 💩 ignored total:
 💩
 💩 ignored typings:
-💩 fs-extra, jest
+💩 benchmark, fs-extra, jest
 💩 active:
 💩
 💩 run again:
@@ -163,12 +163,12 @@ module.use_strict=true
 <PROJECT_ROOT>/node_modules/babel-template/*
 <PROJECT_ROOT>/node_modules/babel-traverse/*
 <PROJECT_ROOT>/node_modules/babel-types/*
-<PROJECT_ROOT>/node_modules/babelify/*
 <PROJECT_ROOT>/node_modules/babylon/*
 <PROJECT_ROOT>/node_modules/bail/*
 <PROJECT_ROOT>/node_modules/balanced-match/*
 <PROJECT_ROOT>/node_modules/base/*
 <PROJECT_ROOT>/node_modules/bcrypt-pbkdf/*
+<PROJECT_ROOT>/node_modules/benchmark/*
 <PROJECT_ROOT>/node_modules/binary/*
 <PROJECT_ROOT>/node_modules/binary-extensions/*
 <PROJECT_ROOT>/node_modules/bindings/*
@@ -627,6 +627,7 @@ module.use_strict=true
 <PROJECT_ROOT>/node_modules/pinkie-promise/*
 <PROJECT_ROOT>/node_modules/pirates/*
 <PROJECT_ROOT>/node_modules/pkg-dir/*
+<PROJECT_ROOT>/node_modules/platform/*
 <PROJECT_ROOT>/node_modules/pluralize/*
 <PROJECT_ROOT>/node_modules/pm2/*
 <PROJECT_ROOT>/node_modules/pm2-axon/*
