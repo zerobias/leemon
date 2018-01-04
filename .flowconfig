@@ -19,6 +19,7 @@ module.use_strict=true
 
 [ignore]
 <PROJECT_ROOT>/es/*
+<PROJECT_ROOT>/docs/*
 💩 ignored total:
 💩
 💩 ignored typings:

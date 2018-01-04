@@ -8,6 +8,7 @@ config*.json
 *.DS_Store*
 lib/
 es/
+docs/
 
 # VSCode specific
 .history

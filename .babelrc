@@ -1,19 +1,37 @@
 {
-  "plugins": [
-    ["@babel/plugin-transform-block-scoping", {
-      "throwIfClosureRequired": true
-    }],
-    "@babel/plugin-transform-flow-strip-types"
-  ],
   "env": {
+    "babel6": {
+      "plugins": [
+        ["transform-es2015-block-scoping", {
+          "throwIfClosureRequired": true
+        }],
+        "transform-flow-strip-types"
+      ]
+    },
     "test": {
       "plugins": [
+        ["@babel/plugin-transform-block-scoping", {
+          "throwIfClosureRequired": true
+        }],
+        "@babel/plugin-transform-flow-strip-types",
         "@babel/plugin-transform-modules-commonjs"
       ]
     },
     "commonjs": {
       "plugins": [
+        ["@babel/plugin-transform-block-scoping", {
+          "throwIfClosureRequired": true
+        }],
+        "@babel/plugin-transform-flow-strip-types",
         "@babel/plugin-transform-modules-commonjs"
+      ]
+    },
+    "es": {
+      "plugins": [
+        ["@babel/plugin-transform-block-scoping", {
+          "throwIfClosureRequired": true
+        }],
+        "@babel/plugin-transform-flow-strip-types"
       ]
     }
   }
