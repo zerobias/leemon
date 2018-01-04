@@ -1,3 +1,7 @@
+# 6.1.0
+*4 Jan 2018*
+- added flow typings generation to provide strong typing to flow users
+- added `zero` bigInt export
 
 # 6.0.0
 *4 Jan 2018, first release as `leemon` library*
