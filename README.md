@@ -13,7 +13,6 @@ yarn add leemon
 [![npm version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 
-
 A bigInt is an array of integers storing the value in chunks of bpe bits, little endian (buff[0] is the least significant word).
 Negative bigInts are stored two's complement. Almost all the functions treat bigInts as nonnegative. The few that view them as two's complement say so in their comments.
 Some functions assume their parameters have at least one leading zero element.
@@ -22,6 +21,34 @@ But the average user should never have to call any of the underscored functions.
 For each underscored function where a parameter is modified, that same variable must not be used as another argument too.
 So, you cannot square x by doing `multMod_(x,x,n)`.  You must use `squareMod_(x,n)` instead, or do `y=dup(x); multMod_(x,y,n)`.
 Or simply use the `multMod(x,x,n)` function without the underscore, where such issues never arise, because non-underscored functions never change their parameters (immutable); they always allocate new memory for the answer that is returned.
+
+# Example
+
+Fibonacci
+
+```js
+import { one, zero, add, bigInt2str } from 'leemon'
+
+function* fibonacci() {
+  let a = zero
+  let b = one
+  while(true){
+    const c = add(a, b)
+    a = b
+    b = c
+    yield bigInt2str(c, 10)
+  }
+}
+
+const fib = fibonacci()
+
+
+
+for (let i = 0;i<500;i++) gen.next().value
+
+// => '225591516161936330872512695036072072046011324913758190588638866418474627738686883405015987052796968498626'
+
+```
 
 # API
 Complete API reference can be found [here](./API.md)
