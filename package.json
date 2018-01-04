@@ -1,8 +1,9 @@
 {
   "name": "leemon",
-  "version": "0.0.1",
-  "description": "Fastest big integer library alive. Based on Big Integer Library by Leemon",
-  "main": "src/index.js",
+  "version": "6.0.0",
+  "description": "High perfomance big integer library for modern javascript application",
+  "main": "lib/index.js",
+  "module": "es/index.js",
   "scripts": {
     "flow": "pm2 start flow-leemon.sh",
     "postflow": "pm2 logs flow-leemon",
@@ -10,7 +11,8 @@
     "test": "jest --config=jest.json",
     "build": "npm run build:cjs && npm run build:es",
     "build:cjs": "cross-env BABEL_ENV=commonjs babel src/ --ignore __tests__ -d lib -s",
-    "build:es": "babel src/ --ignore __tests__ -d es -s",
+    "build:es": "cross-env BABEL_ENV=es babel src/ --ignore __tests__ -d es -s",
+    "docs": "BABEL_ENV=babel6 documentation build src/index.js -f md > API.md",
     "clean": "npm run clean:es && npm run clean:cjs",
     "clean:cjs": "rimraf lib/",
     "clean:es": "rimraf es/",
@@ -51,5 +53,18 @@
     "rimraf": "^2.6.2",
     "tslint": "^5.8.0",
     "typescript": "^2.6.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zerobias/leemon.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zerobias/leemon/issues"
+  },
+  "sideEffects": false,
+  "files": [
+    "lib",
+    "es",
+    "src"
+  ]
 }
