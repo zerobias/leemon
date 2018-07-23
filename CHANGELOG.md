@@ -1,3 +1,7 @@
+# 6.2.0
+*24 July 2018*
+- Enforced usage of new Array
+
 # 6.1.0
 *4 Jan 2018*
 - added flow typings generation to provide strong typing to flow users
